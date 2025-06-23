@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FuturEats – Food Delivery App</title>
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome for icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="css/custom.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <i class="fa-solid fa-utensils me-2 text-gradient"></i>
+        <span class="fw-bold">Futur<span class="text-gradient">Eats</span></span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarMain">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a href="#menu" class="nav-link">Menu</a></li>
+          <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+        </ul>
+        <button class="btn btn-gradient ms-3 position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartPanel">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-bg d-flex align-items-center justify-content-center vh-60 text-center">
+    <div class="container">
+      <h1 class="display-4 fw-bold mb-3">Order <span class="text-gradient">Delicious Food</span> Online</h1>
+      <p class="lead mb-4">Fresh meals delivered to your doorstep – quick, easy, futuristic.</p>
+      <a href="#menu" class="btn btn-gradient btn-lg shadow"><i class="fa-solid fa-bolt me-2"></i>Browse Menu</a>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section id="menu" class="py-5 bg-dark text-light">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold">Our <span class="text-gradient">Menu</span></h2>
+        <p class="lead">Curated for every taste – Add to cart & enjoy!</p>
+      </div>
+      <div class="row g-4" id="menuGrid">
+        <!-- Menu items will be injected here by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h3 class="text-gradient fw-bold mb-3">Why FuturEats?</h3>
+          <p class="fs-5 text-light">
+            We blend technology and taste to deliver the food of the future, now. Fast, secure, and always fresh. Experience a seamless ordering process with our intuitive and modern web app.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cart Panel (Offcanvas) -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="cartPanel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title text-gradient fw-bold"><i class="fa-solid fa-cart-shopping me-2"></i>Your Cart</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column">
+      <ul class="list-group mb-3" id="cartItems">
+        <!-- Cart items will be injected here by JS -->
+      </ul>
+      <div class="mt-auto">
+        <h5 class="fw-semibold mb-3">Total: ₹<span id="cartTotal">0</span></h5>
+        <button class="btn btn-gradient w-100 rounded-pill fw-bold" id="checkoutBtn" disabled>
+          <i class="fa-solid fa-bag-shopping me-2"></i>Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="py-4 bg-dark text-center text-light border-top border-gradient">
+    <div class="container">
+      <p class="mb-0">&copy; 2025 FuturEats. Crafted with <i class="fa-solid fa-heart text-gradient"></i> for foodies.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Food Delivery JS (inline for now) -->
+  <script>
+    // Sample menu data (replace images with real ones if available)
+    const menuItems = [
+      {
+        id: 1,
+        name: "Classic Veg Pizza",
+        desc: "A cheesy delight loaded with fresh veggies and signature sauce.",
+        price: 249,
+        img: "https://images.unsplash.com/photo-1600891964092-c6c9da4b98c5?auto=format&fit=crop&w=400&q=80"
+      },
+      {
+        id: 2,
+        name: "Paneer Tikka Wrap",
+        desc: "Smoky paneer, veggies, and zesty dressing wrapped to perfection.",
+        price: 179,
+        img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80"
+      },
+      {
+        id: 3,
+        name: "Masala Fries",
+        desc: "Crispy potato fries tossed with secret masala blend.",
+        price: 99,
+        img: "https://images.unsplash.com/photo-1543779508-707c5d9b74d8?auto=format&fit=crop&w=400&q=80"
+      },
+      {
+        id: 4,
+        name: "Choco Lava Cake",
+        desc: "Warm, gooey chocolate cake with molten lava center.",
+        price: 129,
+        img: "https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80"
+      },
+      {
+        id: 5,
+        name: "Cold Coffee Frappe",
+        desc: "Chilled, creamy coffee with a swirl of chocolate.",
+        price: 109,
+        img: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80"
+      },
+      {
+        id: 6,
+        name: "Cheese Burst Burger",
+        desc: "A juicy patty, molten cheese, and crunchy veggies in a toasted bun.",
+        price: 159,
+        img: "https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80"
+      }
+    ];
+
+    // Cart state
+    let cart = [];
+
+    // Populate Menu
+    function renderMenu() {
+      const menuGrid = document.getElementById('menuGrid');
+      menuGrid.innerHTML = '';
+      menuItems.forEach(item => {
+        menuGrid.innerHTML += `
+          <div class="col-md-4">
+            <div class="card h-100 feature-card border-0 shadow position-relative">
+              <img src="${item.img}" class="card-img-top rounded-top" alt="${item.name}" style="height:200px;object-fit:cover;">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title fw-bold">${item.name}</h5>
+                <p class="card-text flex-grow-1">${item.desc}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="fw-bold fs-5 text-gradient">₹${item.price}</span>
+                  <button class="btn btn-gradient rounded-pill btn-sm" onclick="addToCart(${item.id})">
+                    <i class="fa-solid fa-plus"></i> Add
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    // Add item to cart
+    function addToCart(itemId) {
+      const item = menuItems.find(x => x.id === itemId);
+      const index = cart.findIndex(x => x.id === itemId);
+      if (index > -1) {
+        cart[index].qty += 1;
+      } else {
+        cart.push({ ...item, qty: 1 });
+      }
+      updateCartDisplay();
+      // Open cart if on mobile
+      if(window.innerWidth < 992) {
+        var cartOffcanvas = new bootstrap.Offcanvas(document.getElementById('cartPanel'));
+        cartOffcanvas.show();
+      }
+    }
+
+    // Remove one from cart
+    function removeFromCart(itemId) {
+      const index = cart.findIndex(x => x.id === itemId);
+      if (index > -1) {
+        cart[index].qty -= 1;
+        if(cart[index].qty <= 0) cart.splice(index,1);
+      }
+      updateCartDisplay();
+    }
+
+    // Update Cart UI
+    function updateCartDisplay() {
+      const cartCount = document.getElementById('cartCount');
+      const cartItems = document.getElementById('cartItems');
+      const cartTotal = document.getElementById('cartTotal');
+      const checkoutBtn = document.getElementById('checkoutBtn');
+
+      let total = 0, count = 0;
+      cartItems.innerHTML = '';
+      cart.forEach(item => {
+        count += item.qty;
+        total += item.price * item.qty;
+        cartItems.innerHTML += `
+          <li class="list-group-item d-flex align-items-center justify-content-between bg-dark text-light">
+            <div>
+              <span class="fw-semibold">${item.name}</span>
+              <span class="badge bg-info ms-2">${item.qty}</span>
+            </div>
+            <div>
+              <span class="fw-bold me-2">₹${item.price * item.qty}</span>
+              <button class="btn btn-sm btn-outline-warning rounded-pill me-1" onclick="removeFromCart(${item.id})"><i class="fa fa-minus"></i></button>
+              <button class="btn btn-sm btn-outline-success rounded-pill" onclick="addToCart(${item.id})"><i class="fa fa-plus"></i></button>
+            </div>
+          </li>
+        `;
+      });
+      cartCount.innerText = count;
+      cartTotal.innerText = total;
+      checkoutBtn.disabled = (cart.length === 0);
+    }
+
+    // Mock Checkout
+    document.addEventListener('DOMContentLoaded', function(){
+      renderMenu();
+      updateCartDisplay();
+      document.getElementById('checkoutBtn').addEventListener('click', function(){
+        alert('Thank you for ordering with FuturEats!\n(This is a frontend demo only.)');
+        cart = [];
+        updateCartDisplay();
+        bootstrap.Offcanvas.getOrCreateInstance(document.getElementById('cartPanel')).hide();
+      });
+    });
+
+    // Expose functions to window (for HTML inline handlers)
+    window.addToCart = addToCart;
+    window.removeFromCart = removeFromCart;
+  </script>
+</body>
+</html>
